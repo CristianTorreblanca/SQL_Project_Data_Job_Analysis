@@ -46,7 +46,117 @@ WHERE
 ORDER BY
     salary_year_avg DESC
 LIMIT 10
-```        
+```
+Here is a breakdown of the top data analyst/business analyst jobs in 2023.
+- **Wide Salary Range:** Top 10 paying data analyst/business analyst roles span from $222,000 to $387,000 indicating significant salary potential in their respected field.
+- **Diverse Employers:** Companies like Roblox, Anthropic, and TikTok are among those offering high salaries, displaying a wide range of potential interest across different industries.
+- **Job Title Variety:** There's a high diversity in job titles, from Data Analyst to Data & Intelligence Manager, Finance. Reflecting a wide range of potential roles.
 
+![Top Paying Roles](assets\1_top_paying_roles.png)*Bar graph visualizing the salary for the top 10 salaries for data analysts/business analysts; I used Tableau to generate this graph from the SQL query results*
+
+### 2. Skills for Top Paying jobs
+To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insight into what employers value for high-compensation roles.
+```sql
+WITH top_paying_jobs AS (
+    SELECT
+        job_id,
+        job_title,
+        salary_year_avg,
+        company_dim.name AS company_name
+    FROM
+        job_postings_fact
+    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id     
+    WHERE
+        job_title_short IN ('Data Analyst', 'Business Analyst') AND
+    (
+        job_location IN ('Long Beach, CA','Los Angeles, CA') OR
+        job_location LIKE '%, CA'
+    )AND
+    salary_year_avg IS NOT NULL
+    ORDER BY
+        salary_year_avg DESC
+    LIMIT 10        
+)
+
+SELECT
+top_paying_jobs.*,
+skills_dim.skills
+FROM
+    top_paying_jobs
+INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+ORDER BY
+    salary_year_avg DESC 
+```
+Here's the breakdown of the most demanded skills for the top 10 highest paying data analyst/business analyst jobs in 2023.
+
+- **SQL** is leading in demand with 9 counts.
+- **Python** is second with a count of 6.
+- **R** follows closely with a count of 5. Other skills like **Tableau**, **SAS**, **Spark** and **Snowflake** show varying degrees of demand.
+![Top paying job skills](assets\2_top_paying_jobs_skills.png)
+*Bar graph visualizing the count of skills for the top 10 paying jobs for data/bussiness analysts; I used Tableau to create this bar graph from the query results.*
+
+### 3. In-Demand Skills for Data Analysts
+This query helped identify the skills most frequently requested in job postings, directing focus to areas with high demand.
+```sql
+SELECT 
+skills,
+COUNT(skills_job_dim.job_id) AS demand_count
+FROM
+    job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE
+    job_title_short IN ('Data Analyst', 'Business Analyst') AND
+    (
+        job_location IN ('Long Beach, CA','Los Angeles, CA') OR
+        job_location LIKE '%, CA'
+    ) 
+GROUP BY
+    skills
+ORDER BY
+    demand_count DESC
+LIMIT 5
+```
+Here's a breakdown of the most demanded skills for data analysts/business analysts in 2023
+- **SQL** and **Excel** remain fundamental, emphasizing the need for strong foundational skills in data processing and spreadsheet mainpulation.
+- **Programming** and **Visualization Tools** like **Python**, **Tableau**, and **R** are essential, pointing towrads the increasing importance of technical skills in data stroytelling and decision support.
+
+| Skill   | Demand Count |
+|---------|-------------|
+| SQL     | 5,610       |
+| Excel   | 4,115       |
+| Tableau | 3,648       |
+| Python  | 3,225       |
+| R       | 2,006       |
+
+*Table of the demand for the top 5 skills in data analyst/busines analyst job postings*
+
+### 4. Skills Based on Salary
+Exploring the average salaries associated with different skills revealed which skills are the highest paying.
+```sql
+SELECT 
+skills,
+ROUND(AVG(salary_year_avg), 2) AS avg_salary
+FROM
+    job_postings_fact
+INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+WHERE
+    job_title_short IN ('Data Analyst', 'Business Analyst') AND
+    (
+        job_location IN ('Long Beach, CA','Los Angeles, CA') OR
+        job_location LIKE '%, CA'
+    ) AND
+    salary_year_avg IS NOT NULL
+GROUP BY
+    skills
+ORDER BY
+    avg_salary DESC
+LIMIT 25
+```
+Here's a breakdown of the results for top paying skills for Data Analysts/Business Analysts:
+
+- **High Demand for Big Data & ML Skills** Top salaries are driven by analysts skilled in big data technologies like Scala, machince learning tools (MXnet,Keras), reflecting the industry's high valuation of data processing and predictive modeling capabilities. 
 # What I learned 
 # Conclusion

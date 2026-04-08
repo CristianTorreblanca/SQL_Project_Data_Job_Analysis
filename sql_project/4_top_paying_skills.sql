@@ -24,7 +24,7 @@ GROUP BY
     skills
 ORDER BY
     avg_salary DESC
-LIMIT 25
+LIMIT 10
 
 /*
      The highest-paying skills are no longer limited to traditional data analysis; the trend is shifting toward building systems with data.
