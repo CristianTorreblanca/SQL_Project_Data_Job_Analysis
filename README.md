@@ -93,7 +93,7 @@ Here's the breakdown of the most demanded skills for the top 10 highest paying d
 - **SQL** is leading in demand with 9 counts.
 - **Python** is second with a count of 6.
 - **R** follows closely with a count of 5. Other skills like **Tableau**, **SAS**, **Spark** and **Snowflake** show varying degrees of demand.
-![Top paying job skills](assets\2_top_paying_jobs_skills.png)
+![Top paying job skills](assets/2_top_paying_jobs_skills.png)
 *Bar graph visualizing the count of skills for the top 10 paying jobs for data/bussiness analysts; I used Tableau to create this bar graph from the query results.*
 
 ### 3. In-Demand Skills for Data Analysts
