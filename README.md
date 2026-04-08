@@ -52,7 +52,7 @@ Here is a breakdown of the top data analyst/business analyst jobs in 2023.
 - **Diverse Employers:** Companies like Roblox, Anthropic, and TikTok are among those offering high salaries, displaying a wide range of potential interest across different industries.
 - **Job Title Variety:** There's a high diversity in job titles, from Data Analyst to Data & Intelligence Manager, Finance. Reflecting a wide range of potential roles.
 
-![Top Paying Roles](assets\1_top_paying_roles.png)*Bar graph visualizing the salary for the top 10 salaries for data analysts/business analysts; I used Tableau to generate this graph from the SQL query results*
+![Top Paying Roles](assets/1_top_paying_roles.png) *Bar graph visualizing the salary for the top 10 salaries for data analysts/business analysts; I used Tableau to generate this graph from the SQL query results*
 
 ### 2. Skills for Top Paying jobs
 To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insight into what employers value for high-compensation roles.
