@@ -158,5 +158,99 @@ LIMIT 25
 Here's a breakdown of the results for top paying skills for Data Analysts/Business Analysts:
 
 - **High Demand for Big Data & ML Skills** Top salaries are driven by analysts skilled in big data technologies like Scala, machince learning tools (MXnet,Keras), reflecting the industry's high valuation of data processing and predictive modeling capabilities. 
+
+- **Software Development & Deployment Proficiency** Knowledge in development and depolyment tools (Node, Bash,Ansible,Pubbpet), leading to a repeating pattern of having a hybrid skills set of data anlaysis and engineering. 
+
+- **Could Computing Expertise** 
+Experience with distributed and cloud-based databases tools (Cassandra,DynamoDB),
+indicating the increasely importance of those who can design and manage could-driven architechtures are highly value and ofter earn higher salaries.
+
+| Skill     | Avg Salary |
+|-----------|-----------:|
+| asana     | 235000.00  |
+| scala     | 204666.67  |
+| mxnet     | 198000.00  |
+| node      | 180000.00  |
+| keras     | 174040.00  |
+| cassandra | 168694.83  |
+| dynamodb  | 165000.00  |
+| bash      | 159640.00  |
+| ansible   | 159640.00  |
+| puppet    | 159640.00  |
+
+*Table of the average salary for the top 10 paying skills for data analysts/business analysts*
+
+### 5. Most Optimal Skills to Learn
+Combining insights from demand and salary data, this query aimed to showcase skills that are high in demand and are often related to high salaries, offering a strategic focus for skill development. 
+
+```sql
+WITH skills_demand AS (
+    SELECT 
+    skills_dim.skill_id,
+    skills_dim.skills,
+    COUNT(skills_job_dim.job_id) AS demand_count
+    FROM
+        job_postings_fact
+    INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+    WHERE
+        job_title_short IN ('Data Analyst', 'Business Analyst') AND
+        (
+            job_location IN ('Long Beach, CA','Los Angeles, CA') OR
+            job_location LIKE '%, CA'
+        ) 
+    GROUP BY
+        skills_dim.skill_id
+
+), average_salary AS (
+    SELECT 
+    skills_job_dim.skill_id,
+    ROUND(AVG(salary_year_avg), 2) AS avg_salary
+    FROM
+        job_postings_fact
+    INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+    WHERE
+        job_title_short IN ('Data Analyst', 'Business Analyst') AND
+        (
+            job_location IN ('Long Beach, CA','Los Angeles, CA') OR
+            job_location LIKE '%, CA'
+        ) AND
+        salary_year_avg IS NOT NULL
+    GROUP BY
+    skills_job_dim.skill_id
+)
+
+SELECT
+    skills_demand.skill_id,
+    skills_demand.skills,
+    demand_count,
+    avg_salary
+FROM
+    skills_demand
+INNER JOIN average_salary ON skills_demand.skill_id = average_salary.skill_id    
+WHERE
+    demand_count > 10
+ORDER BY
+    avg_salary DESC,
+    demand_count DESC
+LIMIT 25
+```
+| Skill ID | Skill     | Demand Count | Avg Salary  |
+|----------|-----------|-------------:|-----------:|
+| 237      | asana     | 20           | 235000.00  |
+| 3        | scala     | 83           | 204666.67  |
+| 63       | cassandra | 19           | 168694.83  |
+| 12       | bash      | 27           | 159640.00  |
+| 18       | mongodb   | 19           | 159574.33  |
+| 92       | spark     | 281          | 158747.48  |
+| 97       | hadoop    | 280          | 158077.63  |
+| 31       | perl      | 90           | 146861.50  |
+| 25       | php       | 71           | 145161.50  |
+
+*Table of the most optimal skills for data analyst/business analyst sorted by salary.*
+
+Here's a breakdown of the most optimal skills for Data Analysts/Business Analysts in 2023:
+
 # What I learned 
 # Conclusion
