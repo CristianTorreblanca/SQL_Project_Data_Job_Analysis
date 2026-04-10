@@ -252,5 +252,13 @@ LIMIT 25
 
 Here's a breakdown of the most optimal skills for Data Analysts/Business Analysts in 2023:
 
+- **High-Paying Specialized Tools:** Skills such as Asana, Scala, and Cassandra stand out with excedendlly high salaries, reaching up to $235,000 for Asana and over $200,000 for Scala. However, the realtive low demand count (19 to 83) implies these are niche or specialized skill sets and are in limited supply therefore giving their high compensation. 
+
+- **Big Data Technologies in High Demand:** Hadoop and Spark high demand count (281 and 280 respectively) in addtion to thier strong average salaries ($158,000). Indicates the continued importance of big data processing frameworks, where professionals who can handle large-scale data systems are highly sought after. 
+
+- **Scripting and Backend Technologies:** Bash, Perl, and PHP showcases moderate demand (27 to 90) with strong average salaries ranging from ~ $145,000 to ~ $160,000. These skills highlight the demand for backend scripting, automation, and legacy system maintenance.
+
+- **Database and NoSQL Technologies:** MongoDB is indicating constant demand and high average salaries around $159,574, reflecting the growing demand on NoSQL databases for handling unstructured and scalabe data. 
 # What I learned 
+Throughout this journey, I've significantly strengthened my SQL skill set with advanced techniques
 # Conclusion
